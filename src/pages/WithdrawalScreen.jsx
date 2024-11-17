@@ -18,8 +18,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { useNavigate } from 'react-router-dom'
 
 export default function WithdrawalScreen() {
+    const navigate = useNavigate();
     const [amount, setAmount] = useState('')
     const [withdrawalMethod, setWithdrawalMethod] = useState('')
     const [bankName, setBankName] = useState('')
@@ -82,7 +84,7 @@ export default function WithdrawalScreen() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
-                            <Button variant="ghost" size="icon">
+                            <Button variant="ghost" size="icon" onClick={() => { navigate(-1); }}>
                                 <ArrowLeft className="h-6 w-6" />
                             </Button>
                             <h1 className="ml-4 text-xl font-semibold text-gray-900 dark:text-white">Withdraw Funds</h1>

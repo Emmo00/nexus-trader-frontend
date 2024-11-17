@@ -1,33 +1,12 @@
-"use client"
-
-import React, { useState } from 'react'
 import { Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, PlusCircle, MinusCircle, TrendingUp, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 import { Progress } from "@/components/ui/progress"
-
+import { Button } from "@/components/ui/button"
 import { ChartWrapper } from "@/data-chart/wrapper"
 import Chart1 from "@/data-chart/line"
+import NavigationHeader from '@/components/layout/NavigationHeader'
 
 export default function MainDashboard() {
-    const [notifications, setNotifications] = useState(3)
-
     // Mock data
     const walletData = {
         balance: 50000,
@@ -61,61 +40,7 @@ export default function MainDashboard() {
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             {/* Header */}
-            <header className="bg-white dark:bg-gray-800 shadow-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-                        <div className="flex justify-start lg:w-0 lg:flex-1">
-                            <a href="#" className="text-2xl font-bold text-gray-900 dark:text-white">
-                                NexusTrader
-                            </a>
-                        </div>
-                        <nav className="hidden md:flex space-x-10">
-                            <Button variant="ghost"><Home className="mr-2 h-4 w-4" /> Dashboard</Button>
-                            <Button variant="ghost"><BarChart2 className="mr-2 h-4 w-4" /> Trade Overview</Button>
-                            <Button variant="ghost"><Wallet className="mr-2 h-4 w-4" /> Wallet</Button>
-                        </nav>
-                        <div className="flex items-center justify-end md:flex-1 lg:w-0">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="ghost" size="icon" className="relative">
-                                            <Bell className="h-5 w-5" />
-                                            {notifications > 0 && (
-                                                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full">
-                                                    {notifications}
-                                                </Badge>
-                                            )}
-                                            <span className="sr-only">Notifications</span>
-                                        </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>
-                                        <p>You have {notifications} unread notifications</p>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                            <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                    <Button variant="ghost" className="ml-4 flex items-center space-x-2">
-                                        <Avatar className="h-8 w-8">
-                                            <AvatarImage src="/placeholder-avatar.jpg" alt="User avatar" />
-                                            <AvatarFallback>JD</AvatarFallback>
-                                        </Avatar>
-                                        <span>John Doe</span>
-                                        <ChevronDown className="h-4 w-4" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                                    <DropdownMenuItem>Logout</DropdownMenuItem>
-                                </DropdownMenuContent>
-                            </DropdownMenu>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <NavigationHeader />
 
             <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
                 <div className="px-4 py-6 sm:px-0">

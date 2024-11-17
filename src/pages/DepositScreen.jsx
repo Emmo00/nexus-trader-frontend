@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, AlertCircle, Lock } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -10,6 +11,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Progress } from "@/components/ui/progress"
 
 export default function DepositScreen() {
+    const navigate = useNavigate();
     const [amount, setAmount] = useState('')
     const [error, setError] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -49,7 +51,7 @@ export default function DepositScreen() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
-                            <Button variant="ghost" size="icon">
+                            <Button variant="ghost" size="icon" onClick={() => { navigate(-1) }}>
                                 <ArrowLeft className="h-6 w-6" />
                             </Button>
                             <h1 className="ml-4 text-xl font-semibold text-gray-900 dark:text-white">Deposit Funds</h1>
