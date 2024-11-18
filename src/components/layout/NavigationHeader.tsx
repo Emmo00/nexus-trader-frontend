@@ -28,17 +28,10 @@ export default function () {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
                     <div className="flex justify-start lg:w-0 lg:flex-1">
-                        <Link to="/" className="text-2xl font-bold text-gray-900 dark:text-white">
+                        <Link to="/overview" className="text-2xl font-bold text-gray-900 dark:text-white">
                             NexusTrader
                         </Link>
                     </div>
-                    <nav className="hidden md:flex space-x-10">
-                        <Link to="/overview">
-                            <Button variant="ghost">
-                                <BarChart2 className="mr-2 h-4 w-4" /> Trade Overview
-                            </Button>
-                        </Link>
-                    </nav>
                     <div className="flex items-center justify-end md:flex-1 lg:w-0">
                         <TooltipProvider>
                             <Tooltip>

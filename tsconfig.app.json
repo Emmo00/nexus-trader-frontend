@@ -1,5 +1,7 @@
 {
+    
     "compilerOptions": {
+        "composite": true,
         "jsx": "react",
         // ...
         "baseUrl": ".",
