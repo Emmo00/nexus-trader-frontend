@@ -1,6 +1,6 @@
-"use client"
 
-import React, { useState } from 'react'
+import * as React from 'react';
+import { useState } from 'react'
 import { ArrowLeft, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"

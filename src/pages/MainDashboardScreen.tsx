@@ -1,9 +1,8 @@
- import { Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, PlusCircle, MinusCircle, TrendingUp, HelpCircle } from 'lucide-react'
+import * as React from 'react';
+import { Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, PlusCircle, MinusCircle, TrendingUp, HelpCircle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import { ChartWrapper } from "@/data-chart/wrapper"
-import Chart1 from "@/data-chart/line"
 import NavigationHeader from '@/components/layout/NavigationHeader'
 
 export default function MainDashboard() {
@@ -148,11 +147,6 @@ export default function MainDashboard() {
                                 <CardTitle>Performance Insights</CardTitle>
                             </CardHeader>
                             <CardContent>
-                                <ChartWrapper
-                                    content={Chart1}
-                                    className="h-[200px]"
-                                    title="Weekly Profit/Loss Trend"
-                                />
                                 <div className="mt-4 flex justify-between">
                                     <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Success Rate</span>
                                     <span className="text-lg font-semibold">80%</span>

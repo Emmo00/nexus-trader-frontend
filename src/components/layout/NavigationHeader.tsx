@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, PlusCircle, MinusCircle, TrendingUp, HelpCircle, LogOut, Settings } from 'lucide-react';
+import * as React from 'react';
+import { useState } from 'react'
+import { Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, PlusCircle, MinusCircle, TrendingUp, HelpCircle, LogOut, Settings, LogIn } from 'lucide-react';
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -22,6 +23,7 @@ import { Link } from 'react-router-dom';
 export default function () {
 
     const [notifications, setNotifications] = useState(3)
+    const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(localStorage.getItem('isAuthenticated')))
 
     return (
         <header className="bg-white dark:bg-gray-800 shadow-sm">
@@ -33,25 +35,28 @@ export default function () {
                         </Link>
                     </div>
                     <div className="flex items-center justify-end md:flex-1 lg:w-0">
-                        <TooltipProvider>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <Button variant="ghost" size="icon" className="relative">
-                                        <Bell className="h-5 w-5" />
-                                        {notifications > 0 && (
-                                            <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full">
-                                                {notifications}
-                                            </Badge>
-                                        )}
-                                        <span className="sr-only">Notifications</span>
-                                    </Button>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>You have {notifications} unread notifications</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-                        <DropdownMenu>
+                        {isAuthenticated ?
+                            <TooltipProvider>
+                                <Tooltip>
+                                    <TooltipTrigger asChild>
+                                        <Button variant="ghost" size="icon" className="relative">
+                                            <Bell className="h-5 w-5" />
+                                            {notifications > 0 && (
+                                                <Badge variant="destructive" className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center rounded-full">
+                                                    {notifications}
+                                                </Badge>
+                                            )}
+                                            <span className="sr-only">Notifications</span>
+                                        </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                        <p>You have {notifications} unread notifications</p>
+                                    </TooltipContent>
+                                </Tooltip>
+                            </TooltipProvider>
+                            : null}
+
+                        {isAuthenticated ? <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className="ml-4 flex items-center space-x-2">
                                     <Avatar className="h-8 w-8">
@@ -76,6 +81,12 @@ export default function () {
                                 <DropdownMenuItem><LogOut /> Logout</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
+                            :
+                            <Link to="/login" >
+                                <Button variant="ghost" className="ml-4 flex items-center space-x-2">
+                                    <LogIn /> Login
+                                </Button>
+                            </Link>}
                     </div>
                 </div>
             </div>

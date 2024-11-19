@@ -14,7 +14,7 @@ function TradingViewWidget() {
             script.innerHTML = `
         {
           "autosize": true,
-          "symbol": "FX:EURUSD",
+          "symbol": "USDJPY",
           "interval": "5",
           "timezone": "Etc/UTC",
           "theme": "light",

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import NavigationHeader from '@/components/layout/NavigationHeader'
+import { getAssets } from '@/lib/requests';
 
 // Mock data for assets
 const assets = [
@@ -28,6 +29,13 @@ export default function OverviewScreen() {
   const [searchQuery, setSearchQuery] = useState('')
   const [favorites, setFavorites] = useState<number[]>([])
   const walletBalance = 10000 // Mock wallet balance
+
+
+  React.useEffect(() => {
+    (async function () {
+      console.log(await getAssets());
+    })();
+  })
 
   const filteredAssets = assets.filter(asset =>
     (filter === 'all' || asset.type === filter) &&

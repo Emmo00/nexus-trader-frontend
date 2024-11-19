@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React from 'react';
+import { useState, useEffect } from 'react'
 import { ArrowLeft, Bell, ChevronDown, Home, Wallet, BarChart2, ArrowUp, ArrowDown, RefreshCw, X, Eye } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -29,9 +30,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-
-import { ChartWrapper } from "@/data-chart/wrapper"
-import Chart1 from "@/data-chart/line"
 
 // Mock data for active trades
 const mockTrades = [
@@ -237,10 +235,6 @@ export default function LiveTradesScreen() {
                                     </div>
                                     <div className="mt-4">
                                         <Label className="text-gray-400 mb-2 block">Price Chart</Label>
-                                        <ChartWrapper
-                                            content={Chart1}
-                                            className="h-[200px]"
-                                        />
                                     </div>
                                     <div className="mt-4 flex justify-end space-x-4">
                                         <Dialog>

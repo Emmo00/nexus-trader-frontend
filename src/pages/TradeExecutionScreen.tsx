@@ -26,9 +26,6 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
-import Chart1 from "@/data-chart/line"
-import { ChartWrapper } from "@/data-chart/wrapper"
 import NavigationHeader from '../components/layout/NavigationHeader'
 import TradingViewChart from '@/components/chart/TradingViewChart';
 
