@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
+import api from '@/lib/api';
 
 export default function SignupPage() {
     const [fullName, setFullName] = useState('')
@@ -44,14 +45,20 @@ export default function SignupPage() {
         // Here you would typically make an API call to your registration endpoint
         // For this example, we'll simulate a signup process
         try {
-            // Simulating an API call
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            const response = await api.post('/auth/register', {
+                name: fullName,
+                email,
+                password
+            });
 
-            // Simulating a successful registration
-            console.log('User registered:', { fullName, email })
+            const user = response.data.user;
+            const token = response.data.token;
 
-            // Redirect to login page or directly to dashboard
-            navigate('/login')
+            localStorage.setItem('userProfile', JSON.stringify(user))
+            localStorage.setItem('token', JSON.stringify(token))
+            localStorage.setItem('isAuthenticated', JSON.stringify(true))
+
+            navigate('/');
         } catch (err) {
             setError('An error occurred during registration. Please try again.')
         } finally {

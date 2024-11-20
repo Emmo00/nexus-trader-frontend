@@ -27,14 +27,14 @@ function App() {
             <MainDashboard />
           </RequireAuth>
         } />
-        <Route path='/trade' element={
-          <RequireAuth>
-            <TradeExecutionScreen />
-          </RequireAuth>
-        } />
         <Route path='/trade/live' element={
           <RequireAuth>
             <LiveTradesScreen />
+          </RequireAuth>
+        } />
+        <Route path='/trade/:symbol' element={
+          <RequireAuth>
+            <TradeExecutionScreen />
           </RequireAuth>
         } />
         <Route path='/deposit' element={

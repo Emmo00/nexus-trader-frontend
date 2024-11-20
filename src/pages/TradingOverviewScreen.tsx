@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,34 +10,24 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import NavigationHeader from '@/components/layout/NavigationHeader'
 import { getAssets } from '@/lib/requests';
 
-// Mock data for assets
-const assets = [
-  { id: 1, name: 'EUR/USD', type: 'currency', price: 1.1234, change: 0.05 },
-  { id: 2, name: 'GBP/JPY', type: 'currency', price: 156.78, change: -0.12 },
-  { id: 3, name: 'Gold', type: 'commodity', price: 1800.50, change: 0.75 },
-  { id: 4, name: 'Oil', type: 'commodity', price: 75.30, change: -1.20 },
-  { id: 5, name: 'Apple', type: 'stock', price: 150.25, change: 1.50 },
-  { id: 6, name: 'Tesla', type: 'stock', price: 700.00, change: -2.30 },
-  { id: 7, name: 'Bitcoin', type: 'crypto', price: 35000.00, change: 3.75 },
-  { id: 8, name: 'Ethereum', type: 'crypto', price: 2500.00, change: 2.10 },
-]
 
 export default function OverviewScreen() {
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [assets, setAssets] = useState([]);
   const [favorites, setFavorites] = useState<number[]>([])
   const walletBalance = 10000 // Mock wallet balance
 
 
   React.useEffect(() => {
     (async function () {
-      console.log(await getAssets());
+      setAssets(await getAssets());
     })();
-  })
+  }, [])
 
   const filteredAssets = assets.filter(asset =>
     (filter === 'all' || asset.type === filter) &&
-    asset.name.toLowerCase().includes(searchQuery.toLowerCase())
+    asset.name.toLowerCase().includes(searchQuery.toLowerCase() && console.log(filter))
   )
 
   const toggleFavorite = (id: number) => {
@@ -50,7 +38,7 @@ export default function OverviewScreen() {
 
   const getAssetIcon = (type: string) => {
     switch (type) {
-      case 'currency':
+      case 'CURRENCY_PAIR':
         return <DollarSign className="h-4 w-4" />
       case 'commodity':
         return <BarChart2 className="h-4 w-4" />
@@ -98,10 +86,10 @@ export default function OverviewScreen() {
             <div className="flex justify-between items-center mb-4">
               <TabsList>
                 <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="currency">Currency Pairs</TabsTrigger>
-                <TabsTrigger value="commodity">Commodities</TabsTrigger>
-                <TabsTrigger value="stock">Stocks</TabsTrigger>
-                <TabsTrigger value="crypto">Cryptocurrencies</TabsTrigger>
+                <TabsTrigger value="CURRENCY_PAIR">Currency Pairs</TabsTrigger>
+                <TabsTrigger value="COMMODITY">Commodities</TabsTrigger>
+                <TabsTrigger value="STOCKS">Stocks</TabsTrigger>
+                <TabsTrigger value="CRYPTOCURRENCY">Cryptocurrencies</TabsTrigger>
               </TabsList>
               <div className="relative">
                 <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" />
@@ -126,7 +114,7 @@ export default function OverviewScreen() {
             <ScrollArea className="h-[600px] w-full">
               <div className="space-y-4">
                 {filteredAssets.map((asset) => (
-                  <Link to={"/trade?asset=" + encodeURI(asset.name)}>
+                  <Link to={"/trade/" + encodeURI(asset.symbol)}>
                     <div key={asset.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
                       <div className="flex items-center">
                         <Button
@@ -140,16 +128,16 @@ export default function OverviewScreen() {
                         <div className="ml-4">
                           <p className="font-semibold">{asset.name}</p>
                           <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                            {getAssetIcon(asset.type)}
-                            <span className="ml-1 capitalize">{asset.type}</span>
+                            {getAssetIcon(asset.category)}
+                            <span className="ml-1 capitalize">{asset.category.toLowerCase().split("_").join(" ")}</span>
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">${asset.price.toFixed(2)}</p>
-                        <p className={`text-sm ${asset.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        <p className="font-semibold">${asset.current_price.toFixed(2)}</p>
+                        {/* <p className={`text-sm ${asset.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                           {asset.change >= 0 ? '+' : ''}{asset.change.toFixed(2)}%
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                   </Link>

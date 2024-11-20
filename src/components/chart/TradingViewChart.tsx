@@ -1,9 +1,14 @@
 // TradingViewWidget.jsx
 import * as React from 'react';
 import { useEffect, useRef, memo } from 'react';
+import { useParams } from 'react-router-dom';
 
 function TradingViewWidget() {
     const container = useRef<HTMLDivElement>();
+
+    const { symbol } = useParams();
+
+    console.log(symbol);
 
     useEffect(
         () => {
@@ -14,7 +19,7 @@ function TradingViewWidget() {
             script.innerHTML = `
         {
           "autosize": true,
-          "symbol": "USDJPY",
+          "symbol": "${symbol}",
           "interval": "5",
           "timezone": "Etc/UTC",
           "theme": "light",
