@@ -1,7 +1,7 @@
 import * as React from 'react';
 import api from '@/lib/api';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, Star, Wallet, ArrowUpCircle, ArrowDownCircle, DollarSign, Bitcoin, BarChart2 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -13,18 +13,19 @@ import { getAssets } from '@/lib/requests';
 
 
 export default function OverviewScreen() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [assets, setAssets] = useState([]);
   const [walletBalance, setWalletBalance] = useState(0);
   const [favorites, setFavorites] = useState<number[]>([]);
 
-    (async function startUp() {
-      // get wallet balance
-      api.get('/wallet/balance').then((response) => {
-        setWalletBalance(response.data.data.balance);
-      })
-    })();
+  (async function startUp() {
+    // get wallet balance
+    api.get('/wallet/balance').then((response) => {
+      setWalletBalance(response.data.data.balance);
+    }).catch(() => navigate('/login'))
+  })();
 
   React.useEffect(() => {
     (async function () {

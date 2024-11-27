@@ -25,7 +25,7 @@ import api from '@/lib/api';
 export default function () {
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState(3)
-    const [userName, setUserName] = useState(JSON.parse(localStorage.getItem('userProfile')).name)
+    const [userName, setUserName] = useState(JSON.parse(localStorage.getItem('userProfile'))?.name)
     const [isAuthenticated, setIsAuthenticated] = useState(JSON.parse(localStorage.getItem('isAuthenticated')));
 
     function logOut() {

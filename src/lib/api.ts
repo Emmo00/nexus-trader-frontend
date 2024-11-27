@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api', // Adjust this to match your API base URL
+    baseURL: 'https://api.nexustrader.com.ng/api', // Adjust this to match your API base URL
 });
 
 // Add a request interceptor
