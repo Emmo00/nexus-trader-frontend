@@ -1,4 +1,5 @@
 import * as React from 'react';
+import api from '@/lib/api';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, Star, Wallet, ArrowUpCircle, ArrowDownCircle, DollarSign, Bitcoin, BarChart2 } from 'lucide-react'
@@ -15,9 +16,15 @@ export default function OverviewScreen() {
   const [filter, setFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [assets, setAssets] = useState([]);
-  const [favorites, setFavorites] = useState<number[]>([])
-  const walletBalance = 10000 // Mock wallet balance
+  const [walletBalance, setWalletBalance] = useState(0);
+  const [favorites, setFavorites] = useState<number[]>([]);
 
+    (async function startUp() {
+      // get wallet balance
+      api.get('/wallet/balance').then((response) => {
+        setWalletBalance(response.data.data.balance);
+      })
+    })();
 
   React.useEffect(() => {
     (async function () {
@@ -27,7 +34,7 @@ export default function OverviewScreen() {
 
   const filteredAssets = assets.filter(asset =>
     (filter === 'all' || asset.type === filter) &&
-    asset.name.toLowerCase().includes(searchQuery.toLowerCase() && console.log(filter))
+    asset.display_name.toLowerCase().includes(searchQuery.toLowerCase() && console.log(filter))
   )
 
   const toggleFavorite = (id: number) => {
@@ -115,29 +122,29 @@ export default function OverviewScreen() {
               <div className="space-y-4">
                 {filteredAssets.map((asset) => (
                   <Link to={"/trade/" + encodeURI(asset.symbol)}>
-                    <div key={asset.id} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+                    <div key={asset.display_name} className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
                       <div className="flex items-center">
                         <Button
                           variant="ghost"
                           size="icon"
-                          onClick={() => toggleFavorite(asset.id)}
-                          className={favorites.includes(asset.id) ? 'text-yellow-400' : 'text-gray-400'}
+                          onClick={() => toggleFavorite(asset.display_name)}
+                          className={favorites.includes(asset.display_name) ? 'text-yellow-400' : 'text-gray-400'}
                         >
                           <Star className="h-4 w-4" />
                         </Button>
                         <div className="ml-4">
-                          <p className="font-semibold">{asset.name}</p>
+                          <p className="font-semibold">{asset.display_name}</p>
                           <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
-                            {getAssetIcon(asset.category)}
-                            <span className="ml-1 capitalize">{asset.category.toLowerCase().split("_").join(" ")}</span>
+                            {getAssetIcon(asset.market)}
+                            <span className="ml-1 capitalize">{asset.market.toLowerCase().split("_").join(" ")}</span>
                           </p>
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="font-semibold">${asset.current_price.toFixed(2)}</p>
-                        {/* <p className={`text-sm ${asset.change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          {asset.change >= 0 ? '+' : ''}{asset.change.toFixed(2)}%
-                        </p> */}
+                        <p className="font-semibold">${asset.spot.toFixed(4)}</p>
+                        <p className={`text-sm ${asset.spot_percentage_change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {asset.spot_percentage_change >= 0 ? '+' : ''}{asset.spot_percentage_change}%
+                        </p>
                       </div>
                     </div>
                   </Link>
@@ -147,6 +154,6 @@ export default function OverviewScreen() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </div >
   )
 }

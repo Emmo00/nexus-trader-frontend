@@ -19,7 +19,7 @@ function TradingViewWidget() {
             script.innerHTML = `
         {
           "autosize": true,
-          "symbol": "${symbol}",
+          "symbol": "${symbol.replace(/[a-z]/g, '')}",
           "interval": "5",
           "timezone": "Etc/UTC",
           "theme": "light",
