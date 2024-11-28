@@ -22,13 +22,17 @@ jobs:
         run: npm install
 
       - name: Build Frontend application
-        run: npm run build
+        run: |
+          touch .env
+          echo ${{ vars.env }} > .env
+          cat .env
+          npm run build
 
       - name: Upload files to Server
         uses: Creepios/sftp-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
+          # port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.SSH_USERNAME }}
           passphrase: ${{ secrets.SSH_PASSWORD }}
           privateKey: ${{ secrets.SSH_SECRET_KEY }}

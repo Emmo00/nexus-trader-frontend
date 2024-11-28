@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://api.nexustrader.com.ng/api', // Adjust this to match your API base URL
+    baseURL: import.meta.env.VITE_API_URL,
 });
 
 // Add a request interceptor
