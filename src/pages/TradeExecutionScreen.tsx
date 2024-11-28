@@ -40,7 +40,7 @@ export default function TradeExecutionScreen(props) {
     const [tradeDuration, setTradeDuration] = useState('')
     const [multiplier, setMultiplier] = useState('')
     const [prediction, _setPrediction] = useState('')
-    const [timeLeft, setTimeLeft] = useState(0) // 5 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(-1) // 5 minutes in seconds
     const [isTradeValid, setIsTradeValid] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
     const [showTimer, setShowTimer] = useState(false);
