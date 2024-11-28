@@ -3,7 +3,7 @@ name: Deploy Frontend to Test Env
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
